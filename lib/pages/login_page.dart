@@ -3,7 +3,8 @@ import 'package:messagingapp/components/my_button.dart';
 import 'package:messagingapp/components/my_textfield.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final void Function()?onTap;
+  const LoginPage({super.key,required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -12,6 +13,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+
+  void signIn(){
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               //sign in button
               MyButton(
-              onTap: () {},
+              onTap: signIn,
                text: "Sign In"),
 
                SizedBox(height: 50,),
@@ -70,9 +75,12 @@ class _LoginPageState extends State<LoginPage> {
                 children:[
                   Text("Not a member ?"),
                   SizedBox(width: 5,),
-                  Text("Register Now",style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple[800]),)
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: Text("Register Now",style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple[800]),),
+                  )
                 ])
             ]),
           ),

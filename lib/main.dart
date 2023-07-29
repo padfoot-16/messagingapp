@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messagingapp/pages/login_page.dart';
 import 'package:messagingapp/pages/register_page.dart';
+import 'package:messagingapp/services/auth/login_or_registre.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Messaging App",
-      home: RegistrePage(),
+      home: LoginOrRegistre(),
     );
   }
 }

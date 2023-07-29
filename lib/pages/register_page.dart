@@ -4,7 +4,8 @@ import '../components/my_button.dart';
 import '../components/my_textfield.dart';
 
 class RegistrePage extends StatefulWidget {
-  const RegistrePage({super.key});
+  final void Function()? onTap;
+  const RegistrePage({super.key,required this.onTap});
 
   @override
   State<RegistrePage> createState() => _RegistrePageState();
@@ -15,6 +16,10 @@ class _RegistrePageState extends State<RegistrePage> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
   final confirmpasswordcontroller = TextEditingController();
+
+  void signUp(){
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,21 +66,33 @@ class _RegistrePageState extends State<RegistrePage> {
               SizedBox(
                 height: 25,
               ),
+              //confirm password textfield
+              MyTextfield(
+                  controller: confirmpasswordcontroller,
+                  hinttext: "Confirm your password",
+                  obscuretext: true),
+
+              SizedBox(
+                height: 25,
+              ),
               //sign in button
               MyButton(
-              onTap: () {},
-               text: "Sign In"),
+              onTap: signUp,
+               text: "Sign Up"),
 
                SizedBox(height: 50,),
               //register
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:[
-                  Text("Not a member ?"),
+                  Text("Already a member ?"),
                   SizedBox(width: 5,),
-                  Text("Register Now",style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple[800]),)
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: Text("Login",style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple[800]),),
+                  )
                 ])
             ]),
           ),
