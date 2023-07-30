@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messagingapp/components/my_button.dart';
 import 'package:messagingapp/components/my_textfield.dart';
+import 'package:messagingapp/services/auth/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()?onTap;
@@ -14,15 +16,24 @@ class _LoginPageState extends State<LoginPage> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
 
-  void signIn(){
+  void signIn()async{
+    final authService=Provider.of<AuthService>(context,listen: false);
 
+    try {
+      await authService.signinwithemailandpassword(
+        emailcontroller.text,
+         passwordcontroller.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      
+    }
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple[100],
       body: SingleChildScrollView(
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         child: SafeArea(
           child: Center(
             child: Padding(
@@ -31,19 +42,19 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                 //logo
-                Container(
+                SizedBox(
                   height: 200,
                   child: Image.asset("assets/pulse.png"),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 //welcome back message
-                Text(
+                const Text(
                   "Welcome back you've been missed!",
                   style: TextStyle(fontSize: 20),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
       
@@ -53,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                     hinttext: "put your email here ",
                     obscuretext: false),
       
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 //password textfield
@@ -62,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                     hinttext: "Put your password here",
                     obscuretext: true),
       
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 //sign in button
@@ -70,13 +81,13 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: signIn,
                  text: "Sign In"),
       
-                 SizedBox(height: 50,),
+                 const SizedBox(height: 50,),
                 //register
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:[
-                    Text("Not a member ?"),
-                    SizedBox(width: 5,),
+                    const Text("Not a member ?"),
+                    const SizedBox(width: 5,),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text("Register Now",style: TextStyle(
