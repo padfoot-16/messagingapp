@@ -67,6 +67,7 @@ class _RegistrePageState extends State<RegistrePage> {
                     //email textfield
                     MyTextfield(
                         controller: emailcontroller,
+                        icon: Icon(Icons.person),
                         hinttext: "put your email here ",
                         obscuretext: false),
 
@@ -76,6 +77,7 @@ class _RegistrePageState extends State<RegistrePage> {
                     //password textfield
                     MyTextfield(
                         controller: passwordcontroller,
+                        icon: Icon(Icons.lock),
                         hinttext: "Put your password here",
                         obscuretext: true),
 
@@ -85,6 +87,7 @@ class _RegistrePageState extends State<RegistrePage> {
                     //confirm password textfield
                     MyTextfield(
                         controller: confirmpasswordcontroller,
+                        icon: Icon(Icons.lock),
                         hinttext: "Confirm your password",
                         obscuretext: true),
 
@@ -92,7 +95,7 @@ class _RegistrePageState extends State<RegistrePage> {
                       height: 25,
                     ),
                     //sign in button
-                    MyButton(onTap: signUp, text: "Sign Up"),
+                    MyButton(onTap: signUp, text: "Sign Up",color: Colors.black,),
 
                     const SizedBox(
                       height: 50,
