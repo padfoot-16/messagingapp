@@ -41,84 +41,97 @@ class _RegistrePageState extends State<RegistrePage> {
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              decoration: const BoxDecoration(
+                  color: Colors.purpleAccent,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(60),
+                      bottomRight: Radius.circular(60))),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      height: 220,
+                      padding: const EdgeInsets.all(16),
+                      child: Image.asset("assets/pulse.png")),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Text(
+                    "Welcome back you've been missed",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
                   children: [
-                    //logo
-                    SizedBox(
-                      height: 200,
-                      child: Image.asset("assets/pulse.png"),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    //welcome back message
-                    const Text(
-                      "Let's create an account for you!",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-
-                    //email textfield
                     MyTextfield(
                         controller: emailcontroller,
-                        icon: Icon(Icons.person),
-                        hinttext: "put your email here ",
-                        obscuretext: false),
-
+                        hinttext: "Put your email here",
+                        obscuretext: false,
+                        icon: const Icon(Icons.person)),
                     const SizedBox(
-                      height: 15,
+                      height: 25,
                     ),
-                    //password textfield
                     MyTextfield(
                         controller: passwordcontroller,
-                        icon: Icon(Icons.lock),
                         hinttext: "Put your password here",
-                        obscuretext: true),
-
+                        obscuretext: true,
+                        icon: const Icon(Icons.lock)),
                     const SizedBox(
                       height: 25,
                     ),
-                    //confirm password textfield
                     MyTextfield(
                         controller: confirmpasswordcontroller,
-                        icon: Icon(Icons.lock),
-                        hinttext: "Confirm your password",
-                        obscuretext: true),
-
+                        hinttext: "Confirm your password here",
+                        obscuretext: true,
+                        icon: const Icon(Icons.lock)),
                     const SizedBox(
                       height: 25,
                     ),
-                    //sign in button
-                    MyButton(onTap: signUp, text: "Sign Up",color: Colors.black,),
-
+                    MyButton(
+                      onTap: signUp,
+                      text: "Sign In",
+                      color: Colors.purpleAccent,
+                    ),
+                    
                     const SizedBox(
                       height: 50,
                     ),
-                    //register
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      const Text("Already a member ?"),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      GestureDetector(
-                        onTap: widget.onTap,
-                        child: Text(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Already a memeber?",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        GestureDetector(
+                          onTap: widget.onTap,
+                            child: const Text(
                           "Login",
                           style: TextStyle(
+                              color: Colors.purpleAccent,
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple[800]),
-                        ),
-                      )
-                    ])
-                  ]),
-            ),
-          ),
+                              fontSize: 18),
+                        ))
+                      ],
+                    )
+                  ],
+                ))
+          ],
+        ),
         ),
       ),
     );
