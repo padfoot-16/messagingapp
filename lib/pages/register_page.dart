@@ -21,7 +21,7 @@ class _RegistrePageState extends State<RegistrePage> {
   void signUp() async {
     if (passwordcontroller.text != confirmpasswordcontroller.text) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(
+          .showSnackBar(const SnackBar(
             content: Text("Passwords don't match")));
       return;    
     }
@@ -29,7 +29,9 @@ class _RegistrePageState extends State<RegistrePage> {
     try {
       await authSerice.signupwithemailandpassword(emailcontroller.text, passwordcontroller.text);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      if (mounted) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+}
       
     }
   }
@@ -47,7 +49,7 @@ class _RegistrePageState extends State<RegistrePage> {
               width: MediaQuery.of(context).size.width,
               height: 300,
               decoration: const BoxDecoration(
-                  color: Colors.purpleAccent,
+                  color: Colors.deepPurple,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(60),
                       bottomRight: Radius.circular(60))),
@@ -101,7 +103,7 @@ class _RegistrePageState extends State<RegistrePage> {
                     MyButton(
                       onTap: signUp,
                       text: "Sign In",
-                      color: Colors.purpleAccent,
+                      color: Colors.deepPurple,
                     ),
                     
                     const SizedBox(
@@ -122,7 +124,7 @@ class _RegistrePageState extends State<RegistrePage> {
                             child: const Text(
                           "Login",
                           style: TextStyle(
-                              color: Colors.purpleAccent,
+                              color: Colors.deepPurple,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         ))

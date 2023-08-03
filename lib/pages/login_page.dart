@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({Key?key, required this.onTap}):super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -23,8 +23,21 @@ class _LoginPageState extends State<LoginPage> {
       await authService.signinwithemailandpassword(
           emailcontroller.text, passwordcontroller.text);
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      if (mounted) {
+  ScaffoldMessenger.of(context)
+      .showSnackBar(SnackBar(content: Text(e.toString())));
+}
+    }
+  }
+  void googlesign()async{
+    final authSerice= Provider.of<AuthService>(context,listen: false);
+    try {
+      await authSerice.signinwithgoogle();
+    } catch (e) {
+      if (mounted) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+}
+      
     }
   }
 
@@ -41,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
               width: MediaQuery.of(context).size.width,
               height: 300,
               decoration: const BoxDecoration(
-                  color: Colors.purpleAccent,
+                  color: Colors.deepPurple,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(60),
                       bottomRight: Radius.circular(60))),
@@ -87,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     MyButton(
                       onTap: signIn,
                       text: "Sign In",
-                      color: Colors.purpleAccent,
+                      color: Colors.deepPurple,
                     ),
                     const SizedBox(
                       height: 15,
@@ -106,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           "Or Continue with",
                           style:
-                              TextStyle(fontSize: 18, color: Colors.purpleAccent),
+                              TextStyle(fontSize: 18, color: Colors.deepPurple),
                         ),
                         SizedBox(
                           width: 10,
@@ -124,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Center(
                       child: GestureDetector(
-                        child: Container(
+                        onTap: googlesign,
+                        child: SizedBox(
                             height: 70,
                             child: Image.asset("assets/goo.png")),
                       ),
@@ -147,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                           "Register Now",
                           style: TextStyle(
-                              color: Colors.purpleAccent,
+                              color: Colors.deepPurple,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         ))
