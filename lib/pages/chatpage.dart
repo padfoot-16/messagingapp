@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:messagingapp/components/chat_bubble.dart';
 import 'package:messagingapp/components/my_textfield.dart';
 import 'package:messagingapp/services/chat/chat_service.dart';
 
@@ -35,6 +36,7 @@ class _ChatpageState extends State<Chatpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
         title: Text(widget.receiveruseremail),
       ),
       body: Column(children: [
@@ -42,6 +44,8 @@ class _ChatpageState extends State<Chatpage> {
         Expanded(child: _buildMessageList()),
         //user input
         _buildMessageInput(),
+
+        SizedBox(height: 25,)
       ]),
     );
   }
@@ -51,7 +55,7 @@ class _ChatpageState extends State<Chatpage> {
     return StreamBuilder(
       stream: _chatservice.getMessage(widget.receiverid, _firebaseAuth.currentUser!.uid),
       builder: (context, snapshot) {
-        if (!snapshot.hasError){
+        if (snapshot.hasError){
           return Text("error ${snapshot.error.toString()}");
         }
         if (snapshot.connectionState ==ConnectionState.waiting){
@@ -72,30 +76,39 @@ class _ChatpageState extends State<Chatpage> {
         : Alignment.centerLeft;
         return Container(
           alignment: alignment,
-          child: Column(children: [
-            Text(data["senderemail"]),
-            Text(data["message"])
-          ],),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: (data["senderId"] == _firebaseAuth.currentUser!.uid) ?CrossAxisAlignment.end :CrossAxisAlignment.start,
+              children: [
+              Text(data["senderEmail"]),
+              SizedBox(height: 5,),
+              ChatBubble(message: data["message"])
+            ],),
+          ),
         );
   }
   //build message input
   Widget _buildMessageInput() {
-    return Row(
-      children: [
-        Expanded(
-            child: MyTextfield(
-          controller: _messagecontroller,
-          hinttext: "enter your message",
-          obscuretext: false,
-          icon: null,
-        )),
-        IconButton(
-            onPressed: sendMessage,
-            icon: Icon(
-              Icons.arrow_upward,
-              size: 40,
-            ))
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Expanded(
+              child: MyTextfield(
+            controller: _messagecontroller,
+            hinttext: "enter your message",
+            obscuretext: false,
+            icon: null,
+          )),
+          IconButton(
+              onPressed: sendMessage,
+              icon: Icon(
+                Icons.arrow_upward,
+                size: 40,
+              ))
+        ],
+      ),
     );
   }
 }
