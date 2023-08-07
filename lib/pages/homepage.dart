@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:messagingapp/pages/people.dart';
+import 'package:messagingapp/pages/chatrooms.dart.dart';
 import 'package:messagingapp/pages/profile_page.dart';
 import 'package:messagingapp/pages/userslist.dart';
 import 'package:messagingapp/services/auth/auth_service.dart';
