@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messagingapp/services/auth/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +29,9 @@ class _RegistrePageState extends State<RegistrePage> {
     }
     final authSerice= Provider.of<AuthService>(context,listen: false);
     try {
-      await authSerice.signupwithemailandpassword(emailcontroller.text, passwordcontroller.text);
+       authSerice.signupwithemailandpassword(emailcontroller.text, passwordcontroller.text);
+      
+
     } catch (e) {
       if (mounted) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
